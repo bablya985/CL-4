@@ -1,0 +1,38 @@
+Step 1: Install MongoDB (on Ubuntu) 
+sudo systemctl start mongodb 
+sudo systemctl enable mongodb 
+Step 2: Start MongoDB Shell 
+mongosh 
+
+
+
+
+
+The AI  & DS Department of a college wants to digitize and manage student data using a NoSQL 
+database. As a developer, build a application to manage student records. Each student record 
+should include details such as roll number, name, branch, year, and marks.
+
+use collegeDB
+
+db.createCollection("students")
+
+db.students.insertOne({roll_no: "CSE001", name: "Gaurav K", branch:"CSE", year: 2, marks: 90})
+
+db.students.insertMany([{roll_no: "CSE002", name: "Atharv K", branch:"CSE", year: 3, marks: 86},{roll_no: "CSE003", name: "Vijay B", branch:"CSE", year: 2, marks: 67} ])
+
+db.students.find().pretty()
+
+db.students.updateOne({roll_no:"CSE001"} , {$set:{marks:93}}
+
+db.students.deleteOne({roll_no:"CSE003"})
+
+sorting
+db.students.find().sort({marks:-1}) 
+
+projection
+db.students.find({},{name:1,marks:1,_id:0})
+
+db.students.find().limit(1)
+
+ db.students.aggregate([ { $group: {_id:"$year",avg_marks:{$avg:"$marks"}}}])
+

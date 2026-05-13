@@ -1,0 +1,99 @@
+Step 1: Install MongoDB (on Ubuntu) 
+sudo systemctl start mongodb 
+sudo systemctl enable mongodb 
+Step 2: Start MongoDB Shell 
+mongosh 
+
+
+Question -->  A college wants to digitize student academic records. As a database developer, your task is to use 
+MongoDB to: 
+ Create a database of student records. 
+ Perform CRUD operations on the data. 
+ Sort and filter records based on performance. 
+ Display selected fields. 
+ Limit the number of results. 
+ Use aggregation to compute average marks department-wise. 
+
+
+use CollegeDB 
+db.createCollection("Students") 
+
+Insert Student Records 
+db.Students.insertMany([ 
+{ 
+roll_no: "S001", 
+name: "Ananya Joshi", 
+department: "Computer", 
+semester: 4, 
+marks: 85, 
+grade: "A" 
+}, 
+{ 
+roll_no: "S002", 
+name: "Raj Mehta", 
+department: "Mechanical", 
+semester: 4, 
+marks: 78, 
+grade: "B" 
+}, 
+{ 
+roll_no: "S003", 
+name: "Sneha Patil", 
+department: "Computer", 
+semester: 4, 
+marks: 92, 
+grade: "A+" 
+}, 
+{ 
+roll_no: "S004", 
+name: "Ishaan Kulkarni", 
+department: "Electronics", 
+semester: 4, 
+marks: 69, 
+grade: "C" 
+} 
+])
+
+
+Show all student records: 
+db.Students.find().pretty() 
+
+
+Show Computer department students: 
+db.Students.find({ department: "Computer" }) 
+
+
+Update grade of S002 to "B+": 
+db.Students.updateOne( 
+{ roll_no: "S002" }, 
+{ $set: { grade: "B+" } } 
+) 
+
+
+
+ Delete Operation 
+db.Students.deleteOne({ roll_no: "S004" })
+
+
+
+Sort students by marks (descending): 
+db.Students.find().sort({ marks: -1 }) 
+
+
+Show only names and marks: 
+db.Students.find({}, { name: 1, marks: 1, _id: 0 }) 
+
+
+Limit--- Show top 2 students: 
+db.Students.find().sort({ marks: -1 }).limit(2)
+
+
+Find average marks per department: 
+db.Students.aggregate([ 
+{ 
+$group: { 
+_id: "$department", 
+avg_marks: { $avg: "$marks" } 
+}
+}
+])

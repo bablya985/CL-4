@@ -1,0 +1,92 @@
+Step 1: Install MongoDB (on Ubuntu) 
+sudo systemctl start mongodb 
+sudo systemctl enable mongodb 
+Step 2: Start MongoDB Shell 
+mongosh 
+
+An e-commerce startup wants to build a product catalog database to store and manage product 
+information. As a database developer, your task is to use MongoDB to:
+
+use ProductDB
+
+db.createCollection("Products")
+
+db.Products.insertMany([
+{
+    productid: 101,
+    name: "Laptop",
+    category: "Electronics",
+    price: 65000,
+    stock: 10
+},
+{
+    productid: 102,
+    name: "Smartphone",
+    category: "Electronics",
+    price: 30000,
+    stock: 25
+},
+{
+    productid: 103,
+    name: "Shoes",
+    category: "Fashion",
+    price: 2500,
+    stock: 40
+},
+{
+    productid: 104,
+    name: "Watch",
+    category: "Accessories",
+    price: 5000,
+    stock: 15
+},
+{
+    productid: 105,
+    name: "Headphones",
+    category: "Electronics",
+    price: 3500,
+    stock: 20
+},
+{
+    productid: 106,
+    name: "T-Shirt",
+    category: "Fashion",
+    price: 1200,
+    stock: 50
+}
+])
+
+
+db.Products.find().pretty()
+
+db.Products.find({price: {$gt: 5000}})
+
+
+db.Products.find({category: "Electronics"})
+
+db.Products.updateOne(
+    {productid: 105},
+    {$set: {price: 4000}}
+)
+
+
+db.Products.deleteOne({productid: 106})
+
+
+db.Products.find().sort({price: 1})
+db.Products.find().sort({price: -1})
+
+
+db.Products.find(
+    {},
+    {name: 1, price: 1, _id: 0}
+)
+
+
+db.Products.find().limit(3)
+
+db.Products.find().sort({price: -1}).limit(2)
+
+ db.Products.aggregate([{$group:{_id: "$category" ,average_price:{$avg:"$price"}} }])
+
+

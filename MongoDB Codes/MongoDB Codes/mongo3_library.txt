@@ -1,0 +1,57 @@
+Step 1: Install MongoDB (on Ubuntu) 
+sudo systemctl start mongodb 
+sudo systemctl enable mongodb 
+Step 2: Start MongoDB Shell 
+mongosh
+
+
+
+A college library wants to maintain a digital database of books instead of keeping handwritten 
+registers. As a backend developer, you are assigned to develop a MongoDB-based system to 
+manage books. Each book entry should include a Book ID, Title, Author, Category, and 
+Availability status. 
+
+
+
+use LibraryDB
+db.createCollection("Books") 
+
+db.Books.insertMany([ 
+{ 
+book_id: "B001", 
+title: "Database Systems", 
+author: "Raghu Ramakrishnan", 
+category: "Computer Science", 
+available: true 
+}, 
+{ 
+book_id: "B002", 
+title: "Clean Code", 
+author: "Robert C. Martin", 
+category: "Programming", 
+available: false 
+}, 
+{ 
+book_id: "B003", 
+title: "Introduction to Algorithms", 
+author: "Cormen et al.", 
+category: "Algorithms", 
+available: true 
+} 
+]) 
+
+
+
+db.Books.find().pretty() 
+
+db.Books.find({ available: true })
+
+db.Books.updateOne( 
+{ book_id: "B002" }, 
+{ $set: { available: true } } 
+) 
+
+
+db.Books.deleteOne({ book_id: "B003" }) 
+
+

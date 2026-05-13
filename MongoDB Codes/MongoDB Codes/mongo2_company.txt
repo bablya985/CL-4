@@ -1,0 +1,30 @@
+Step 1: Install MongoDB (on Ubuntu) 
+sudo systemctl start mongodb 
+sudo systemctl enable mongodb 
+Step 2: Start MongoDB Shell 
+mongosh 
+
+A company wants to shift its employee record system from spreadsheets to a NoSQL database. 
+As a software engineer, you are required to create and manage employee records using 
+MongoDB. Each employee's information should include Employee ID, Name, Department, 
+Designation, and Salary. 
+
+
+ use companyDB
+
+db.createCollection("employee")
+
+db.employee.insertOne({emp_id:"EMP001",name:"lokesh B",department:"HR",designation:"manager",salary:65000})
+
+
+
+ db.employee.insertMany([{emp_id:"EMP002",name:"Darshan S",department:"Developer",designation:"SDE1",salary:55000},{emp_id:"EMP003",name:"Rushi D",department:"Analyst",designation:"SDE1",salary:45000}])
+
+
+db.employee.find().pretty()
+
+db.employee.find({salary:{$gt:60000}})
+
+db.employee.updateOne({ emp_id:"EMP001" }, { $set: { salary : 67000 } } )
+
+db.employee.deleteOne({emp_id:"EMP003"})
